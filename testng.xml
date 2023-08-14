@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Automation Suite" thread-count="3" parallel="tests">
+    <test name="LogIn" parallel="tests">
+        <classes>
+            <class name="SearchTest"/>
+        </classes>
+    </test>
+    <test name="Secoud" parallel="tests">
+        <classes>
+            <class name="AddInToCartTest"/>
+        </classes>
+    </test>
+    <test name="third" parallel="tests">
+        <classes>
+            <class name="FormInputTest"/>
+        </classes>
+    </test>
+</suite>
