@@ -128,7 +128,7 @@ public class AddInCartPageSteps extends AddInCartPageObject {
         System.out.println(itemPrice);
         System.out.println(itemQuantity);
         System.out.println(totalPrice);
-        if (itemQuantity > 1) {
+        if (itemQuantity <= 1) {
             BigDecimal expectedTotalPrice = itemPrice.multiply(BigDecimal.valueOf(itemQuantity));
             Assert.assertEquals(expectedTotalPrice, totalPrice);
         }
