@@ -10,9 +10,6 @@ import static com.codeborne.selenide.Condition.visible;
 
 public class AddInCartPageSteps extends AddInCartPageObject {
 
-
-
-
     // positive
     @Step("Search for a product and add in to the cart: bag repost: პროდუქტის დამეტების დროს კალათაში გარედან არ ჩანს რაოდენობა და ფასი")
     public AddInCartPageSteps addToCart() {
@@ -75,17 +72,28 @@ public class AddInCartPageSteps extends AddInCartPageObject {
         return this;
     }
 
+    /**
+     * ამოწმებს ნივთების მთლიან ფასს.
+     *
+     * ეს მეთოდი ამრავლებს ნივთის ფასს რაოდენობაზე და ადარებს გამოტანილ მთლიან ფასს.
+     * თუ რაოდენობა 1-ზე მეტია, ის ითვლის მოსალოდნელ მთლიან ფასს საქონლის ფასის რაოდენობაზე გამრავლებით,
+     * და შემდეგ ამტკიცებს, რომ მოსალოდნელი ჯამური ფასი ემთხვევა რეალურ მთლიან ფასს.
+     *
+     */
     @Step("count multiply price of items")
-    public AddInCartPageSteps countDoublePrice() {
+    public AddInCartPageSteps validateTotalPrice() {
         String itemPriceText = itemPrice.getText();
         String itemQuantityValue = itemQuantity.getValue();
         String itemTotalPriceText = itemTotalPrice.getText();
+
         BigDecimal itemPrice = new BigDecimal(itemPriceText.replaceAll("[^\\d.]", ""));
         int itemQuantity = Integer.parseInt(itemQuantityValue);
         BigDecimal totalPrice = new BigDecimal(itemTotalPriceText.replaceAll("[^\\d.]", ""));
+
         System.out.println(itemPrice);
         System.out.println(itemQuantity);
         System.out.println(totalPrice);
+
         if (itemQuantity > 1) {
             BigDecimal expectedTotalPrice = itemPrice.multiply(BigDecimal.valueOf(itemQuantity));
             Assert.assertEquals(expectedTotalPrice, totalPrice);
@@ -101,6 +109,14 @@ public class AddInCartPageSteps extends AddInCartPageObject {
         return this;
     }
 
+    /**
+     * შეამცირეთ რაოდენობა და ფასი.
+     *
+     * ეს მეთოდი ამცირებს ნივთის ფასს მისი რაოდენობის მიხედვით და ამოწმებს ნაჩვენები მთლიან ფასს.
+     * თუ რაოდენობა 1-ზე მეტია, ის ამრავლებს ნივთის ფასს რაოდენობაზე და შემდეგ ამტკიცებს, რომ მოსალოდნელია
+     * ჯამური ფასი ემთხვევა რეალურ მთლიან ფასს.
+     *
+     */
     @Step("Reduce quantity and price")
     public AddInCartPageSteps reduceQuantityPrice() {
         String itemPriceText = itemPrice.getText();
@@ -112,7 +128,7 @@ public class AddInCartPageSteps extends AddInCartPageObject {
         System.out.println(itemPrice);
         System.out.println(itemQuantity);
         System.out.println(totalPrice);
-        if (itemQuantity > 1) {
+        if (itemQuantity <= 1) {
             BigDecimal expectedTotalPrice = itemPrice.multiply(BigDecimal.valueOf(itemQuantity));
             Assert.assertEquals(expectedTotalPrice, totalPrice);
         }
