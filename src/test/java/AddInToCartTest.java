@@ -89,7 +89,7 @@ public class AddInToCartTest extends ChromeRunner {
     public void productionItemCountDoublePrice() {
         addInCartPageSteps.addToCart()
                 .PlusBtn()
-                .countDoublePrice();
+                .validateTotalPrice();
     }
 
     //positive case
