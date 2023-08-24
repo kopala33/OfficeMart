@@ -89,7 +89,7 @@ Insert gif or link to demo
 
 
 ## 🛠 Skills
-Java, Maven, Selenide. HTML, CSS...
+Java, Maven, Selenide, selenium, TesrNG, Allure, HTML, CSS...
 
 
 ## Other Common Github Profile Sections
